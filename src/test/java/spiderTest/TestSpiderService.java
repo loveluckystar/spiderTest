@@ -8,7 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.spiderTest.domain.Spider;
+import com.spiderTest.Spider;
 import com.spiderTest.util.BCConvertUtil;
 
 public class TestSpiderService implements ITestSpiderService {

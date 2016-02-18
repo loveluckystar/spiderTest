@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+       <!-- 搜狐焦点 配置信息 -->
+       <bean id="ziroomSpider" class="com.spiderTest.ZiroomSpiderTemplate">
+       		<!--part1: 登录信息 -->
+       		<property name="loginMap">
+       			<map>
+       				<entry key="userName">
+       					<value>user</value>
+       				</entry>
+       				<entry key="password">
+       					<value>pwd</value>
+       				</entry>
+       				<entry key="rootUrl">
+       					<value>http://#city#.focus.cn</value> 
+       				</entry>
+       				<entry key="validateCode">
+       					<value>/webregister/validateCode.php</value>
+       				</entry>
+       				<entry key="checkUser">
+       					<value>/webregister/checkUserNameCeng.php</value>
+       				</entry>
+       				<entry key="checkPassword">
+       					<value>/webregister/checkPasswordCeng.php</value>
+       				</entry>
+       			</map>
+       		</property>
+       		
+       		<property name="headerMap">
+       			<map>
+       				<entry key="Host">
+       					<value>www.ziroom.com</value>
+       				</entry>
+       				<entry key="referer">
+       					<value>http://www.ziroom.com</value>
+       				</entry>
+       				<entry key="User-Agent">
+       					<value>Mozilla/5.0 (Windows NT 6.1; WOW64; rv:30.0) Gecko/20100101 Firefox/30.0</value>
+       				</entry>
+       				<entry key="Accept-Encoding">
+       					<value>gzip,deflate,sdch</value>
+       				</entry>
+       			</map>
+       		</property>
+       		
+       		<!--part2: 爬取目标Url -->
+       		<property name="urlMap">
+       			<map>
+       				<!-- 自如搜索页 信息 -->
+       				<entry key="ziroomSearchInfo">
+       					 <!--2015.02.06日修改之前的地址： <value>/search/0_0_0_0_0_0_0_0_0.html?&amp;page=#pageIndex#</value>  -->
+       					 <value>/z/nl/sub/s13%E5%8F%B7%E7%BA%BF-z1.html?&amp;p=#pageIndex#</value>
+       				</entry>
+       			</map>
+       		</property>
+       		
+       		<!--part3: 爬取目标信息 xpathMap，以及当前 xpath下，dom属性与本地对象属性的map-->
+       		
+       		<!--part3.1: 新房信息 -->
+       		<property name="ziroomSearchInfo">
+       			<map>
+       				<!-- <a href="/votehouse/4043.html" onclick="set_insight_cookie(4043);" target="_blank">官厅湖1号</a> -->
+       				<entry key="name">
+   						<map>
+   							<entry key="attrName">
+   								<!-- 若value为空，直接取node节点的东西 -->
+   								<value></value>
+   							</entry>
+   							<!-- 映射类型，xpath匹配的属性与xiaoqu_id的对应关系，存在single:1-1或者multiple:1-n -->
+   							<entry key="mapType">
+       							<value>single</value>
+       						</entry>
+   							<entry key="xpath">
+   								<!-- <value>/HTML/BODY/DIV[6]/DIV[2]/DIV[1]/DIV[2]/DIV[2]/DIV[position()>=1]/DIV[2]/DIV[1]/A</value> -->
+   								<value>//*[@class="lp-t-title"]/A</value>
+   							</entry>
+   						</map>
+       				</entry>
+       				<!-- <a href="/votehouse/4043.html" onclick="set_insight_cookie(4043);" target="_blank">官厅湖1号</a> -->
+       				<entry key="productid">
+   						<map>
+   							<entry key="attrName"><value>projid</value></entry>
+   							<entry key="mapType"><value>single</value></entry>
+   							<entry key="xpath">
+   								<!-- <value>/HTML/BODY/DIV[6]/DIV[2]/DIV[1]/DIV[2]/DIV[2]/DIV[position()>=1]/DIV[2]/DIV[1]/A</value> -->
+   								<value>//*[@class="s-lp-list"]/DIV[position()>=1]</value>
+   							</entry>
+   						</map>
+       				</entry>
+       				<entry key="pagecount">
+   						<map>
+   							<entry key="attrName"><value></value></entry>
+   							<entry key="mapType"><value>single</value></entry>
+   							<entry key="xpath"><!-- 除gz、sz以外的城市 -->
+   								<!-- 2015.02.06日修改之前： <value>/HTML/BODY/DIV[6]/DIV[2]/DIV[1]/DIV[2]/DIV[3]/A[10]</value> -->
+   								<value>//*[@class="pages"]/SPAN[2]</value>
+   							</entry>
+   						</map>
+       				</entry>
+       			</map>
+       		</property>
+       </bean>
+</beans>

@@ -17,6 +17,6 @@
        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
        <bean id="testxml" class="com.spiderTest.domain.Testxml">
     		<property name="test1"><value>111</value></property>
-    		<property name="test2"><value>222</value></property>
+    		<property name="test2"><value>44</value></property>
        </bean>
 </beans>

@@ -1,4 +1,4 @@
-package com.spiderTest.domain;
+package com.spiderTest;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,7 +47,7 @@ public class Spider {
 	 */
 	public Document getDocumentByHttpClient(String pageUrl, Map<String, String> headerMap)
 			throws Exception {
-		return this.getDocumentByHttpClient(pageUrl, headerMap, "GBK");
+		return this.getDocumentByHttpClient(pageUrl, headerMap, "utf8");
 	}
 	
 	/*
@@ -201,7 +201,6 @@ public class Spider {
 				}
 				return nodeList;
 			} catch (TransformerException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return null;
 			}
